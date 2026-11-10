@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+body { @apply bg-ink-950 text-slate-200 font-sans antialiased; }
+:focus-visible { outline: 2px solid #a78bfa; outline-offset: 2px; }
+@layer components {
+  .panel { @apply rounded-2xl border border-white/5 bg-ink-800; }
+  .btn { @apply inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors; }
+  .btn-primary { @apply btn bg-accent text-white hover:bg-accent-deep; }
+  .btn-ghost { @apply btn bg-ink-700 text-slate-200 hover:bg-ink-600; }
+}
+
+@layer components {
+  .input { @apply w-full rounded-xl border border-white/10 bg-ink-900 px-3 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 focus:border-accent-soft focus:outline-none; }
+}
+
+/* ---- Slide backgrounds ---- */
+.wfbg { position: absolute; inset: 0; overflow: hidden; }
+.wfbg::before, .wfbg::after { content: ''; position: absolute; }
+.wfbg-midnight { background: linear-gradient(160deg, #1a1033, #0b0d17 70%); }
+.wfbg-sunrise { background: linear-gradient(180deg, #2b1055 0%, #b4437a 55%, #f6a25a 100%); }
+.wfbg-ocean { background: linear-gradient(180deg, #041a2e, #0b4a6f); }
+.wfbg-forest { background: linear-gradient(170deg, #06201a, #1d5a45); }
+.wfbg-gold { background: radial-gradient(ellipse at 50% 0%, #5a4310, #14110a 70%); }
+.wfbg-rose { background: linear-gradient(160deg, #3a1030, #7b2d5b 60%, #d4756b); }
+
+.wfbg-aurora {
+  background: linear-gradient(120deg, #1b0f3f, #0f4c75, #6d28d9, #0e7490, #1b0f3f);
+  background-size: 300% 300%; animation: wf-pan 26s ease-in-out infinite;
+}
+@keyframes wf-pan { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+.wfbg-bokeh { background: linear-gradient(160deg, #130b2e, #0a1230); }
+.wfbg-bokeh::before {
+  inset: -20%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(167,139,250,.35) 0 6cqw, transparent 6.4cqw),
+    radial-gradient(circle at 72% 22%, rgba(96,165,250,.28) 0 9cqw, transparent 9.4cqw),
+    radial-gradient(circle at 55% 72%, rgba(244,114,182,.25) 0 7cqw, transparent 7.4cqw),
+    radial-gradient(circle at 15% 80%, rgba(56,189,248,.22) 0 5cqw, transparent 5.4cqw),
+    radial-gradient(circle at 88% 70%, rgba(167,139,250,.28) 0 4cqw, transparent 4.4cqw);
+  animation: wf-drift 32s ease-in-out infinite alternate;
+}
+@keyframes wf-drift { from { transform: translate(-3%, 2%) scale(1); } to { transform: translate(3%, -3%) scale(1.1); } }
+
+.wfbg-stars { background: linear-gradient(#050816, #0b1030); }
+.wfbg-stars::before, .wfbg-stars::after {
+  inset: 0; animation: wf-twinkle 4s ease-in-out infinite alternate; background-size: 180px 180px;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent), radial-gradient(1px 1px at 90px 70px, #cbd5ff, transparent),
+    radial-gradient(2px 2px at 150px 120px, #fff, transparent), radial-gradient(1px 1px at 60px 140px, #fff, transparent);
+}
+.wfbg-stars::after { background-size: 260px 260px; background-position: 40px 60px; animation-duration: 6s; animation-delay: -2s; }
+@keyframes wf-twinkle { from { opacity: .3; } to { opacity: 1; } }
+
+.wfbg-waves { background: linear-gradient(#06233f, #0a5c8f); }
+.wfbg-waves::before, .wfbg-waves::after { left: 0; right: 0; bottom: 0; }
+.wfbg-waves::before {
+  height: 45%; background: radial-gradient(ellipse 50% 100% at 50% 100%, rgba(255,255,255,.10) 0 70%, transparent 71%) 0 100% / 32cqw 100% repeat-x;
+  animation: wf-waveA 22s linear infinite;
+}
+.wfbg-waves::after {
+  height: 32%; background: radial-gradient(ellipse 50% 100% at 50% 100%, rgba(255,255,255,.08) 0 70%, transparent 71%) 0 100% / 22cqw 100% repeat-x;
+  animation: wf-waveB 16s linear infinite;
+}
+@keyframes wf-waveA { to { background-position: 32cqw 100%; } }
+@keyframes wf-waveB { to { background-position: -22cqw 100%; } }
+
+.wfbg-rays { background: radial-gradient(ellipse at 50% 0%, #2a1a5e, #0a0b1a 75%); }
+.wfbg-rays::before {
+  inset: -60%; background: repeating-conic-gradient(rgba(255,255,255,.09) 0 5deg, transparent 5deg 15deg);
+  -webkit-mask-image: radial-gradient(circle, #000 10%, transparent 65%); mask-image: radial-gradient(circle, #000 10%, transparent 65%);
+  animation: wf-spin 160s linear infinite;
+}
+@keyframes wf-spin { to { transform: rotate(360deg); } }
+
+.wfbg-embers { background: linear-gradient(0deg, #3a0f06, #0d0504 80%); }
+.wfbg-embers::before {
+  inset: 0; background-size: 300px 400px; animation: wf-rise 16s linear infinite;
+  background-image:
+    radial-gradient(3px 3px at 20% 80%, #ffb36b, transparent), radial-gradient(2px 2px at 60% 50%, #ff8a3d, transparent),
+    radial-gradient(2px 2px at 80% 90%, #ffd29a, transparent), radial-gradient(3px 3px at 40% 20%, #ff9a52, transparent);
+}
+@keyframes wf-rise { to { background-position: 0 -400px; } }
+
+.wf-still .wfbg, .wf-still .wfbg::before, .wf-still .wfbg::after { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) {
+  .wfbg, .wfbg::before, .wfbg::after { animation: none !important; }
+}
+
+@keyframes wf-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes wf-out { from { opacity: 1; } to { opacity: 0; } }
+.wf-fadein { animation: wf-in .5s ease both; }
+.wf-fadeout { animation: wf-out .5s ease both; }
+.wf-textfade { animation: wf-in .35s ease both; }
